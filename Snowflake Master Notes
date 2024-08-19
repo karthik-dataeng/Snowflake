@@ -1,0 +1,53 @@
+--------------------------------------------------------------------------------Snowflake Data Storage & Transfer cost--------------------------------------------------------------------------------
+  Snowflake Pricing are based on Two:
+  -----------------------------------
+    -- On Demand Storage (Pay What we use) 
+    -- Capacity Storage (Pay up front and use)
+
+  Price may differs based on the Region for (On Demand):
+  - for Ohio (AWS) -- $40 / TB 
+  - Pay for what we use model
+
+  Price may differs based on the Region for (On Capacity Storage):
+  - Pay only for defined capacity upfront
+  - $24.50 / TB
+
+Transfer Data:
+--------------
+Data ingress is Free.
+No Charges if the region and platform are same.
+Data egress is charges
+
+---------------------------------------------------------------------------------------Monitor Usage------------------------------------------------------------------------------------------------
+Go to --> Admin tab --> Cost Management
+we can select the warehouse and check the pricing details / consuption details.
+
+Consuption Tab in Cost Management:
+Gives more details about the Cost based on the compute, storage ect... by just selection on the drop down menu's
+
+---------------------------------------------------------------------------------------Resource Monitor------------------------------------------------------------------------------------------------
+-- Resource Monitor is object used to monitor the credit usage of Warehouse and account
+-- Aviable for all the editions 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
