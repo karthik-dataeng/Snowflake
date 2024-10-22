@@ -29,12 +29,59 @@ Gives more details about the Cost based on the compute, storage ect... by just s
 -- Resource Monitor is object used to monitor the credit usage of Warehouse and account
 -- Aviable for all the editions
 
+Snowpipe:
+---------
+1. create a IAM role allowing the neccessary access to the S3 bucket get the ARN role id configure in integration 
+2. create storage integration 
+  create or replace storage integration snowpipe_int
+  type = external_stage
+  storage_provider = S3
+  enabled = TRUE
+  storage_aws_role_arn = 'arn:aws:iam::307946640967:role/snowflakede'
+  storage_allowed_locations = ('s3://snowflakedebucket1/snowpipe/snowpipe_files')
+  comment = 'This is for snowpipe';
+3. desc storage integration, take the external id paste it in the IAM role external id
+4. create stage 
+5. create pipe auto ingest = TRUE and desc pipe get the channel notification and go the S3 bucket and create event notification SQS paste the 
+channel notification pass. 
+6. all set to the data load via snowpipe. 
+
+To check pipe is running or not:
+alter pipe pipename refresh; -- it will tell the files uploaded.
+-- Validate pipe is actually working
+select system$pipe_status('emp_pipe'); -- says the running status of the pipe.
+
+-- Snowpipe error message:
+-- This gives the highlevel of failure
+select * from table(validate_pipe_load(
+pipe_name => 'pipe_name'
+start_time => dateadd(hour, -2, current_timestamp()
+));
+
+-- To get granualar level mistake and error follow the below steps:
+select * from table(information_schema.copy_history(table_name = 'table_name', start_time => dateadd(hour, -2, current_timestamp())));
+/ this will provide the reason of the failure
 
 
+-- Time travel --
+Using:
+1. Timestamp:
+------------
+=> select * from table at(time_stamp =>  timestamp);
 
+2. offset:
+----------
+=> select * from table at(offset => -10*60);
 
+3. Query Id:
+------------
+=> select * from table before(statement => query_id);
 
-
+4. updrop table/schema/database: (we should have ownership privilages to undrops)
+----------------
+=> undrop table table_name
+=> undrop schema schema_name
+=> undrop database database_name
 
 
 
